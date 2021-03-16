@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>边界检测</title>
+  <script src="./utils/tools.js"></script>
+  <script src="./utils/ball.js"></script>
+</head>
+
+<body>
+  <canvas id="canvas" width="200" height="150" style="border: 1px solid silver;"></canvas>
+  <script type="module">
+    import { $$ } from "./utils/common.js"
+    window.onload = function () {
+      const cnv = $$("canvas")
+      const cxt = cnv.getContext("2d")
+
+      /*  
+            // 初始化数据
+            const ball = new Ball(cnv.width / 2, cnv.height / 2)
+            ball.fill(cxt)
+      
+            const key = tools.getKey();
+      
+      
+            // 添加键盘事件
+            window.addEventListener("keydown", function (e) {
+              cxt.clearRect(0, 0, cnv.width, cnv.height)
+      
+              // 根据key.direction的值，判断物体移动方向
+              switch (key.direction) {
+                case "up":
+                  ball.y -= 3;
+                  checkBorder();
+                  ball.fill(cxt);
+                  break;
+                case "down":
+                  ball.y += 3;
+                  checkBorder();
+                  ball.fill(cxt);
+                  break;
+                case "left":
+                  ball.x -= 3;
+                  checkBorder();
+                  ball.fill(cxt);
+                  break;
+                case "right":
+                  ball.x += 3;
+                  checkBorder();
+                  ball.fill(cxt);
+                  break;
+                default:
+                  checkBorder();
+                  ball.fill(cxt);
+                  break;
+              }
+            }, false)
+      
+      
+            // const ball = new Ball(0, cnv.height / 2)
+            // var vx = 2;
+      
+            // (function frame() {
+            //   window.requestAnimationFrame(frame)
+            //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+      
+            //   ball.x += vx;
+            //   checkBorder()
+            //   ball.fill(cxt)
+            // })()
+      
+            // /!* 边界限制 *!/
+            // // 定义边界检测函数
+            // function checkBorder() {
+            //   // 当小球碰到上边界时
+            //   if (ball.y < ball.radius) {
+            //     ball.y = ball.radius
+            //     // 当小球碰到下边界时
+            //   } else if (ball.y > cnv.height - ball.radius) {
+            //     ball.y = cnv.height - ball.radius
+            //   }
+            //   // 当小球碰到左边界时
+            //   if (ball.x < ball.radius) {
+            //     ball.x = ball.radius
+            //     // 当小球碰到右边界时
+            //   } else if (ball.x > cnv.width - ball.radius) {
+            //     ball.x = cnv.width - ball.radius
+            //   }
+            // }
+      
+            /!* 边界环绕 *!/
+            function checkBorder() {
+              // 小球“完全超出”左边界时
+              if (ball.x < -ball.radius) {
+                ball.x = cnv.width + ball.radius
+                // 小球“完全超出”右边界时
+              } else if (ball.x > cnv.width + ball.radius) {
+                ball.x = -ball.radius
+              }
+              // 小球“完全超出”上边界时
+              if (ball.y < -ball.radius) {
+                ball.y = cnv.height + ball.radius
+                // 小球“完全超出”下边界时
+              } else if (ball.y > cnv.height + ball.radius) {
+                ball.y = -ball.radius
+              }
+            }
+            */
+
+      /* 边界生成 */
+      // 定义一个用来存放小球的数组balls
+      // var balls = []
+      // // n表示小球数量
+      // const n = 50;
+      // const gravity = 0.15
+
+      // // 生成n个小球，其中小球的color、vx、vy都是随机值
+      // for (var i = 0; i < n; i++) {
+      //   // 球心坐标为Canvas中心，color为随机颜色值
+      //   const ball = new Ball(cnv.width / 2, cnv.height / 2, 5, tools.getRandomColor())
+      //   // ball.vx和ball.vy取值都是：-3~3之间的任意数
+      //   ball.vx = (Math.random() * 2 - 1) * 3;
+      //   ball.vy = (Math.random() * 2 - 1) * 3;
+      //   // 添加到数组balls中
+      //   balls.push(ball)
+      // }
+
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   // 使用forEach()函数遍历数组balls
+      //   balls.forEach(function (ball) {
+      //     // 边界检测，使得小球完全移出画布后会在中心位置重新生成
+      //     if (ball.x < -ball.radius || ball.x > cnv.width + ball.radius ||
+      //       ball.y < -ball.radius || ball.y > cnv.height + ball.radius) {
+      //       ball.x = cnv.width / 2;
+      //       ball.y = cnv.height / 2;
+      //       // ball.vx = (Math.random() * 2 - 1) * 3;
+      //       // ball.vy = (Math.random() * 2 - 1) * 3;
+      //       // 随机产生3~4之间的任意数
+      //       ball.vx = Math.random() + 3;
+      //       // 随机产生-3~3之间的任意数
+      //       ball.vy = (Math.random() * 2 - 1) * 3
+      //     }
+      //     ball.fill(cxt)
+
+      //     ball.x += ball.vx
+      //     ball.y += ball.vy
+      //     ball.vy += gravity
+      //   })
+      // })()
+
+      // const ball = new Ball(cnv.width / 2, cnv.height / 2, 5, tools.getRandomColor())
+      // // vx和vy取值都是：-3~3之间的任意数
+      // let vx = (Math.random() * 2 - 1) * 3;
+      // let vy = (Math.random() * 2 - 1) * 3;
+      // // 边界反弹
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   ball.x += vx;
+      //   ball.y += vy;
+
+      //   // 边界检测
+      //   // 碰到左边界
+      //   if (ball.x < ball.radius) {
+      //     ball.x = ball.radius
+      //     vx = -vx
+      //   } else if (ball.x > cnv.width - ball.radius) {
+      //     // 碰到右边界
+      //     ball.x = cnv.width - ball.radius
+      //     vx = -vx
+      //   }
+      //   // 碰到上边界
+      //   if (ball.y < ball.radius) {
+      //     ball.y = ball.radius
+      //     vy = -vy
+      //   } else if (ball.y > cnv.height - ball.radius) {
+      //     // 碰到下边界
+      //     ball.y = cnv.height - ball.radius
+      //     vy = -vy
+      //   }
+
+      //   ball.fill(cxt)
+      // })()
+
+      // 1.定义一个数组来存放多个物体
+      const balls = []
+      const n = 10;
+
+      // 2.用for循环生成单个物体，然后添加到数组中
+      for (let i = 0; i < n; i++) {
+        const ball = new Ball(cnv.width / 2, cnv.height / 2)
+        ball.vx = (Math.random() * 2 - 1) * 3;
+        ball.vy = (Math.random() * 2 - 1) * 3
+        balls.push(ball)
+      }
+
+      // 3.动画循环中，使用forEach遍历数组，从而处理单个物体
+      (function frame() {
+        window.requestAnimationFrame(frame)
+        cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+        balls.forEach(ball => {
+          ball.x += ball.vx
+          ball.y += ball.vy
+
+          if (ball.x < ball.radius) {
+            ball.x = ball.radius
+            ball.vx = -ball.vx
+          } else if (ball.x > cnv.width - ball.radius) {
+            ball.x = cnv.width - ball.radius;
+            ball.vx = -ball.vx
+          }
+
+          if (ball.y < ball.radius) {
+            ball.y = ball.radius
+            ball.vy = -ball.vy
+          } else if (ball.y > cnv.height - ball.radius) {
+            ball.y = cnv.height - ball.radius;
+            ball.vy = -ball.vy
+          }
+          ball.fill(cxt)
+        })
+
+      })()
+    }
+  </script>
+</body>
+
+</html>

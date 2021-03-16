@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>webgl最短教程</title>
+  <style>
+    * {
+      margin: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #canvas {
+      background-color: antiquewhite;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <!-- 顶点着色器 -->
+  <script id="vertexShader" type="x-shader/x-vertex">
+    // 必须加分号
+    attribute vec4 a_Position;
+    attribute float a_PointSize;
+    void main() {
+      // 点位
+      gl_Position = a_Position;
+      // 尺寸
+      gl_PointSize = a_PointSize;
+    }
+  </script>
+  <!-- 片元着色器 -->
+  <script id="fragmentShader" type="x-shader/x-fragment">
+    // 必须加分号
+    precision mediump float;
+    uniform vec4 u_FragColor;
+    void main() {
+      float dist = distance(gl_PointCoord, vec2(0.5, 0.5));
+      if (dist<0.5) {
+        gl_FragColor = u_FragColor;
+      } else {
+        discard;
+      }
+    }
+  </script>
+  <script type="module">
+    import { initShaders } from "./jsm/utils.js"
+
+    const canvas = document.getElementById("canvas");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const vsSource = document.querySelector("#vertexShader").innerText;
+    const fsSource = document.querySelector("#fragmentShader").innerText;
+    // 三维画笔
+    const gl = canvas.getContext("webgl");
+
+    // 初始化着色器
+    // 功能：解析着色器文本，整合到程序对象里，关联webgl上下文对象，实现两种语言之间的通信
+    initShaders(gl, vsSource, fsSource);
+
+    // 设置attribute 变量
+    const a_Position = gl.getAttribLocation(gl.program, "a_Position")
+    const a_PointSize = gl.getAttribLocation(gl.program, "a_PointSize")
+    const u_FragColor = gl.getUniformLocation(gl.program, "u_FragColor")
+
+    const a_points = [{ x: 0, y: 0, size: 10, color: { r: 1, g: 1, b: 0, a: 1 } }]
+    // 修改attribute 变量
+    // gl.vertexAttrib3f(a_Position, 0.0, 0.5, 0.0);
+    // gl.vertexAttrib1f(a_Position, 0.1);
+    // gl.vertexAttrib1f(a_PointSize, 100)
+
+
+    /**
+     * GLSL ES函数命名规律
+     * GLSL ES里函数的命名结构是：<基础函数名><参数个数><参数类型>
+     * 以vertexAttrib3f(location, v0, v1, v2)
+     * vertexAttrib: 基础函数名
+     * 3: 参数个数，这里的参数个数是要传给变量的参数个数，而不是当前函数的参数个数
+     * f: 参数类型，f代表float 浮点类型，除此之外还有i代表整型，v代表数字...
+    */
+
+    // 开始声明颜色
+    gl.clearColor(0, 0, 0, 1);
+    // 刷底色
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    // 绘制顶点
+    // gl.drawArrays(gl.POINTS, 0, 1);
+    render()
+
+    canvas.addEventListener("click", ({ clientX, clientY }) => {
+      console.log(clientX, clientY)
+      const { left, top, width, height } = canvas.getBoundingClientRect()
+      const [cssX, cssY] = [
+        clientX - left, clientY - top
+      ]
+
+      // 解决坐标原点的差异
+      const [halfWidth, halfHeight] = [width / 2, height / 2]
+      const [xBaseCenter, yBaseCenter] = [
+        cssX - halfWidth, cssY - halfHeight
+      ]
+      // 解决y 方向的差异
+      const yBaseCenterTop = -yBaseCenter
+
+      // 解决坐标基底的差异
+      const [x, y] = [xBaseCenter / halfWidth, yBaseCenterTop / halfHeight]
+
+      // gl.vertexAttrib2f(a_Position, x, y)
+      // gl.clear(gl.COLOR_BUFFER_BIT)
+      // gl.drawArrays(gl.POINTS, 0, 1)
+      const size = Math.random() * 100 + 10
+      const r = Math.random()
+      const g = Math.random()
+      const b = Math.random()
+      const a = 1
+      a_points.push({ x, y, size, color: { r, g, b, a } })
+      render()
+    })
+
+    // 渲染方法
+    function render() {
+      gl.clear(gl.COLOR_BUFFER_BIT)
+      a_points.forEach(({ x, y, size, color: { r, g, b, a } }) => {
+        gl.vertexAttrib2f(a_Position, x, y)
+        gl.vertexAttrib1f(a_PointSize, size)
+        // gl.uniform4f(u_FragColor, r, g, b, a)
+        const arr = new Float32Array([r, g, b, a])
+        gl.uniform4fv(u_FragColor, arr)
+        gl.drawArrays(gl.POINTS, 0, 1)
+      })
+    }
+  </script>
+</body>
+
+</html>

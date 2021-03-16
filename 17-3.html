@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用户交互</title>
+  <script src="./utils//tools.js"></script>
+  <script src="./utils/ball.js"></script>
+</head>
+
+<body>
+  <canvas id="canvas" width="200" height="150" style="border:1px solid silver;"></canvas>
+  <script type="module">
+    /**
+     * 在canvas中，鼠标事件可以用来实现以下三种交互效果
+     * 1）捕获物体
+     *    canvas中捕获物体的情况可以分为四种：
+     *      （1）矩形的捕获
+     *      （2）圆的捕获
+     *      （3）多边形的捕获
+     *      （4）不规则图形的捕获
+     *    多边形和不规则图形捕获方法采用：分离轴定理（SAT）和最小平移量（MTV）
+     * 2）拖曳物体
+     * 3）抛掷物体
+     */
+    import { $$ } from "./utils/common.js"
+    window.onload = function () {
+      const cnv = $$("canvas")
+      const cxt = cnv.getContext("2d")
+      const txt = $$("txt")
+
+      const ball = new Ball(cnv.width / 2, cnv.height / 2, 20)
+      ball.fill(cxt)
+      const mouse = tools.getMouse(cnv)
+      // 初始化2个变量：dx和dy
+      let dx = 0, dy = 0
+
+
+      // 为画布添加mousedown事件
+      cnv.addEventListener("mousedown", function () {
+        // 判断鼠标点击是否落在小球上，如果落在，就添加两个事件：mousemove、mouseup
+        if (ball.checkMouse(mouse)) {
+          // dx 为鼠标与球心的水平偏移量
+          dx = mouse.x - ball.x
+          // dy 为鼠标与球心的垂直偏移量
+          dy = mouse.y - ball.y
+          document.addEventListener("mousemove", onMouseMove, false)
+          document.addEventListener("mouseup", onMouseUp, false)
+        }
+      }, false);
+
+      function onMouseMove() {
+        // 鼠标移动时，更新小球坐标
+        ball.x = mouse.x - dx;
+        ball.y = mouse.y - dy
+        // 加入边界限制
+        if (ball.x < ball.radius) {
+          ball.x = ball.radius
+        } else if (ball.x > cnv.width - ball.radius) {
+          ball.x = cnv.width - ball.radius
+        }
+        if (ball.y < ball.radius) {
+          ball.y = ball.radius
+        } else if (ball.y > cnv.height - ball.radius) {
+          ball.y = cnv.height - ball.radius
+        }
+      }
+      function onMouseUp() {
+        // 鼠标松开时，移除鼠标松开事件：mouseup（自身事件）
+        document.removeEventListener("mouseup", onMouseUp, false)
+        // 鼠标松开时，移除鼠标移动事件：mousemove
+        document.removeEventListener("movemove", onMouseMove, false)
+      }
+
+      (function frame() {
+        window.requestAnimationFrame(frame)
+        cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+        ball.fill(cxt)
+      })()
+    }
+  </script>
+</body>
+
+</html>

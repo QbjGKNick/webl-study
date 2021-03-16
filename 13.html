@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./utils/tools.js"></script>
+</head>
+
+<body>
+  <canvas id="canvas" width="200" height="150" style="border: 1px solid silver"></canvas>
+  <p id="txt"></p>
+  <script type="module">
+    import { $$ } from "./utils/common.js"
+    window.onload = function () {
+      const cnv = $$("canvas")
+      const cxt = cnv.getContext("2d")
+
+      // const txt = $$("txt")
+      // const mouse = tools.getMouse(cnv)
+
+      // cnv.addEventListener("mousemove", function () {
+      //   txt.innerHTML = " 鼠标当前坐标为:（" + mouse.x + "," + mouse.y + "）"
+      // }, false)
+
+      // // 初始化一个圆形
+      // drawBall(cnv.width / 2, cnv.height / 2)
+      // // 初始化变量
+      // var x = 100
+      // var y = 75
+
+      // // 获取按键方向
+      // var key = tools.getKey()
+
+      // // 添加鼠标按下事件
+      // window.addEventListener("keydown", function (e) {
+      //   // 清除整个canvas，以便重绘新的图形
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   // 根据key.direction的值，判断小球移动方向
+      //   switch (key.direction) {
+      //     case "up":
+      //       y -= 2
+      //       drawBall(x, y)
+      //       break
+      //     case "down":
+      //       y += 2
+      //       drawBall(x, y)
+      //       break
+      //     case "left":
+      //       x -= 2
+      //       drawBall(x, y)
+      //       break
+      //     case "right":
+      //       x += 2
+      //       drawBall(x, y)
+      //       break
+      //     default:
+      //       drawBall(x, y)
+      //   }
+      // }, false)
+
+      // function drawBall(x, y) {
+      //   cxt.beginPath()
+      //   cxt.arc(x, y, 20, 0, 360 * Math.PI / 180, true)
+      //   cxt.closePath()
+      //   cxt.fillStyle = "#6699FF"
+      //   cxt.fill()
+      // }
+
+      // 初始化变量，也就是初始化圆的x轴坐标为0
+      var x = 0;
+      // 动画循环
+      (function frame() {
+        window.requestAnimationFrame(frame)
+        // 每次动画循环都先清空画布，再绘制新的图形
+        cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+        // 绘制圆
+        cxt.beginPath()
+        cxt.arc(x, 70, 20, 0, 360 * Math.PI / 180, true)
+        cxt.closePath()
+        cxt.fillStyle = "#6699FF"
+        cxt.fill()
+
+        // 变量递增
+        x += 2
+      })()
+    }
+
+  </script>
+</body>
+
+</html>

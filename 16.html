@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>碰撞检测</title>
+  <script src="./utils/tools.js"></script>
+  <script src="./utils/ball.js"></script>
+  <script src="./utils/box.js"></script>
+</head>
+
+<body>
+  <canvas id="canvas" width="200" height="150" style="border: 1px solid silver;"></canvas>
+  <!-- <p id="msg"></p> -->
+  <!-- <p id="txt"></p> -->
+  <script type="module">
+    import { $$ } from "./utils/common.js"
+    window.onload = function () {
+      const cnv = $$("canvas")
+      const cxt = cnv.getContext("2d")
+      // const txt = $$('txt')
+      // const msg = $$("msg")
+
+      // // 定义一个位置固定的小球ballA
+      // const ballA = new Ball(cnv.width / 2, cnv.height / 2)
+      // // 获取ballA的外接矩形
+      // const rectA = ballA.getRect()
+      // const mouse = tools.getMouse(cnv);
+
+      // (function frame() {
+      //   window.requestAnimationFrame(frame);
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   // 绘制ballA以及它的外接矩形
+      //   ballA.fill(cxt)
+      //   cxt.strokeRect(rectA.x, rectA.y, rectA.width, rectA.height)
+
+      //   // 定义一个位置不固定的小球ballB，小球追随鼠标
+      //   const ballB = new Ball(mouse.x, mouse.y, 30)
+      //   // 获取ballB的外接矩形
+      //   const rectB = ballB.getRect()
+
+      //   // 绘制ballB以及它的外接矩形
+      //   ballB.fill(cxt)
+      //   cxt.strokeRect(rectB.x, rectB.y, rectB.width, rectB.height)
+
+      //   // 绘制碰撞
+      //   if (tools.checkRect(rectA, rectB)) {
+      //     msg.innerHTML = "撞上了"
+      //   } else {
+      //     msg.innerHTML = "没撞上"
+      //   }
+      // }) ()
+
+      // // 定义一个用来存放方块的数组boxes
+      // const boxes = []
+      // // 定义一个“当前活动”的方块
+      // let activeBox = createBox()
+      // // 定义方块的Y轴速度
+      // const vy = 2
+
+      // // 加入鼠标控制
+      // const key = tools.getKey()
+      // window.addEventListener('keydown', function () {
+      //   switch (key.direction) {
+      //     case "down":
+      //       activeBox.y += 5
+      //       break;
+      //     case "left":
+      //       activeBox.x -= 10
+      //       break;
+      //     case "right":
+      //       activeBox.x += 10
+      //       break;
+      //     default:
+      //       break;
+      //   }
+      // }, false)
+
+      // // 定义一个函数createBox()，用于创建一个新的方块
+      // function createBox() {
+      //   const x = Math.random() * cnv.width
+      //   const y = 0
+      //   const width = Math.random() * 40 + 10
+      //   const height = Math.random() * 40 + 10
+      //   const color = tools.getRandomColor()
+      //   const box = new Box(x, y, width, height, color)
+      //   // 添加到数组boxes中
+      //   boxes.push(box)
+      //   return box
+      // }
+
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   activeBox.y += vy
+
+      //   // 边界检测，如果到达底部，则创建一个新的box
+      //   if (activeBox.y > cnv.height - activeBox.height) {
+      //     activeBox.y = cnv.height - activeBox.height
+      //     activeBox = createBox()
+      //   }
+      //   if (activeBox.x > cnv.width - activeBox.width) {
+      //     activeBox.x = cnv.width - activeBox.width
+      //   }
+      //   if (activeBox.x < 0) {
+      //     activeBox.x = 0
+      //   }
+      //   // 遍历数组boxes，以便单独处理每一个box
+      //   boxes.forEach(function (box) {
+      //     /* 如果当前遍历的box不是“活动方块（activeBox）”，并且当前遍历的方块与“活动方块（activeBox）”碰上了，则创建新的方块 */
+      //     if (activeBox !== box && tools.checkRect(activeBox, box)) {
+      //       activeBox.y = box.y - activeBox.height;
+      //       activeBox = createBox()
+      //     }
+      //     box.fill(cxt)
+      //   })
+      // })()
+
+      // 定义一个位置固定的小球
+      // const ballA = new Ball(cnv.width / 2, cnv.height / 2, 20, '#FF6699')
+      // const mouse = tools.getMouse(cnv);
+
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   // 定义一个位置不固定的小球，小球追随鼠标
+      //   const ballB = new Ball(mouse.x, mouse.y, 20, '#66CCFF')
+
+      //   // 碰撞检测
+      //   if (tools.checkCircle(ballB, ballA)) {
+      //     txt.innerHTML = "撞上了"
+      //   } else {
+      //     txt.innerHTML = "没撞上"
+      //   }
+
+      //   ballA.fill(cxt)
+      //   ballB.fill(cxt)
+      // })()
+
+      // const ballA = new Ball(0, cnv.height / 2, 12, '#FF6699')
+      // const ballB = new Ball(cnv.width, cnv.height / 2, 12, '#66CCFF')
+
+      // // 定义小球x轴速度
+      // let vx = 2;
+
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   ballA.x += vx;
+      //   ballB.x += -vx
+
+      //   // 如果发生碰撞，则速度取反
+      //   if (tools.checkCircle(ballB, ballA)) {
+      //     vx = -vx
+      //   }
+
+      //   ballA.fill(cxt)
+      //   ballB.fill(cxt)
+      // })()
+
+      // 多物体碰撞
+      const n = 8
+      const balls = []
+
+      // 生成n个小球，小球的x、y、color、vx、vy属性取的都是随机值
+      for (let i = 0; i < n; i++) {
+        const ball = new Ball()
+        ball.x = Math.random() * cnv.width
+        ball.y = Math.random() * cnv.height
+        ball.radius = 10
+        ball.color = tools.getRandomColor()
+        ball.vx = Math.random() * 6 - 3
+        ball.vy = Math.random() * 6 - 3
+        // 添加到数组balls中
+        balls.push(ball)
+      }
+
+      // 碰撞检测（小球与小球）
+      function checkCollision(ballA, i) {
+        const num = 10 / 2
+        for (let j = i + 1; j < balls.length; j++) {
+          const ballB = balls[j]
+          // 如果两个小球碰撞，则碰撞后vx、vy都取相反值
+          if (tools.checkCircle(ballB, ballA)) {
+            ballA.vx = -ballA.vx
+            ballA.vy = -ballA.vy
+            ballB.vx = -ballB.vx
+            ballB.vy = -ballB.vy
+
+            // 每次碰撞，小球的x、y都加入偏移量，避免相互重叠
+
+            if (ballA.vx > 0) {
+              ballA.x += num
+            } else {
+              ballA.x -= num
+            }
+            if (ballA.vy > 0) {
+              ballA.y += num
+            } else {
+              ballA.y -= num
+            }
+            if (ballB.vx > 0) {
+              ballB.x += num
+            } else {
+              ballB.x -= num
+            }
+            if (ballB.vy > 0) {
+              ballB.y += num
+            } else {
+              ballB.y -= num
+            }
+          }
+        }
+      }
+
+      // 边界检测（小球与边界）
+      function checkBorder(ball) {
+        // 碰到左边界
+        if (ball.x < ball.radius) {
+          ball.x = ball.radius
+          ball.vx = -ball.vx
+        } else if (ball.x > cnv.width - ball.radius) {
+          // 碰到右边界
+          ball.x = cnv.width - ball.radius
+          ball.vx = -ball.vx
+        }
+        // 碰到上边界
+        if (ball.y < ball.radius) {
+          ball.y = ball.radius
+          ball.vy = -ball.vy
+        } else if (ball.y > cnv.height - ball.radius) {
+          // 碰到下边界
+          ball.y = cnv.height - ball.radius
+          ball.vy = -ball.vy
+        }
+      }
+
+      // 绘制小球
+      function drawBall(ball) {
+        ball.fill(cxt)
+        ball.x += ball.vx
+        ball.y += ball.vy
+      }
+
+      (function frame() {
+        window.requestAnimationFrame(frame)
+        cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+        balls.forEach(checkCollision)
+        // 边界检测
+        balls.forEach(checkBorder)
+        // 绘制小球
+        balls.forEach(drawBall)
+      })()
+    }
+  </script>
+</body>
+
+</html>

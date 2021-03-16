@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas状态</title>
+</head>
+
+<body>
+  <canvas id="canvas" width="200" height="150" style="border: 1px dashed gray;"></canvas>
+  <script type="module">
+    import { $$ } from "./utils/common.js"
+    window.onload = function () {
+      const cnv = $$('canvas')
+      const cxt = cnv.getContext('2d')
+
+      // cxt.beginPath()
+      // cxt.arc(50, 50, 40, 0, 360 * Math.PI / 180, true)
+      // cxt.closePath()
+      // cxt.strokeStyle = "HotPink"
+      // cxt.stroke()
+
+      // // 使用clip()，使得”描边圆“成为一个剪切区域
+      // // cxt.clip()
+
+      // cxt.beginPath()
+      // cxt.fillStyle = "#66CCFF"
+      // cxt.fillRect(50, 50, 100, 80)
+
+      // cxt.globalAlpha = '0.3'
+      // const text = '绿叶学习网'
+      // const font = '20px bold Microsoft Yahei'
+      // cxt.fillStyle = 'purple'
+      // cxt.fillText(text, 50, 40)
+
+      // cxt.fillStyle = 'HotPink'
+      // cxt.fillRect(50, 50, 100, 50)
+
+      cxt.globalCompositeOperation = 'source-out'
+
+      cxt.fillStyle = 'HotPink'
+      cxt.fillRect(30, 30, 60, 60)
+
+      cxt.beginPath()
+      cxt.arc(100, 100, 40, 0, Math.PI * 2, true)
+      cxt.closePath()
+      cxt.fillStyle = 'LightSkyBlue'
+      cxt.fill()
+    }
+  </script>
+</body>
+
+</html>

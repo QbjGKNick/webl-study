@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>webgl最短教程</title>
+  <style>
+    * {
+      margin: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #canvas {
+      background-color: antiquewhite;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById("canvas")
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+    // 三维画笔
+    const gl = canvas.getContext("webgl")
+    // 开始声明颜色
+    gl.clearColor(0, 0, 0, 1)
+    // 刷底色
+    gl.clear(gl.COLOR_BUFFER_BIT)
+
+    // css颜色
+    const rgbaCss = "rgba(255,144,0,1)"
+    const reg = new RegExp(/\((.*)\)/)
+    // 捕获数据
+    const rgbaStr = reg.exec(rgbaCss)[1]
+    const rgba = rgbaStr.split(",").map(item => +item)
+    const r = rgba[0] / 255
+    const g = rgba[1] / 255
+    const b = rgba[2] / 255
+    const a = rgba[3]
+    gl.clearColor(r, g, b, a)
+    gl.clear(gl.COLOR_BUFFER_BIT)
+  </script>
+</body>
+
+</html>

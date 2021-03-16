@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <canvas id="canvas" width="200" height="180"></canvas>
+  <br />
+  <input type="button" value="放大" id="btn-big">
+  <input type="button" value="缩小" id="btn-small">
+  <!-- <input type="button" value="移动" id="btn"> -->
+  <!-- <input type="button" value="旋转" id="btn"> -->
+  <script type="text/javascript">
+    function $$(id) {
+      return document.getElementById(id)
+    }
+    window.onload = function () {
+      const cnv = $$('canvas')
+      const cxt = cnv.getContext('2d')
+
+      // cxt.fillStyle = 'HotPink'
+      // // cxt.lineWidth = 4
+      // // cxt.strokeStyle = 'red'
+      // // cxt.strokeRect(30, 30, 50, 50)
+      // cxt.fillRect(30, 30, 50, 50)
+
+      // cxt.scale(1.5, 1.5)
+      // cxt.fillStyle = 'LightSkyBlue'
+      // cxt.fillRect(30, 30, 50, 50)
+
+      // $$('btn').onclick = function () {
+      //   // cxt.clearRect(0, 0, cnv.width, cnv.height)
+      //   // cxt.translate(10, 10)
+      //   // cxt.fillStyle = 'red'
+      //   // cxt.fillRect(30, 30, 50, 50)
+      //   cxt.rotate(30 * Math.PI / 180)
+      //   cxt.fillStyle = 'LightSkyBlue'
+      //   cxt.fillRect(30, 30, 50, 50)
+      // }
+
+      // let degree = 0
+      // setInterval(() => {
+      //   cxt.rotate(-degree * Math.PI / 180)
+      //   cxt.fillRect(30, 30, 50, 50)
+      //   degree++;
+      // }, 100)
+
+      // let i = 0, rectWidth = 100, rectHeight = 50
+      // setInterval(() => {
+      //   i++
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+      //   cxt.save()
+      //   cxt.translate(cnv.width / 2, cnv.height / 2)
+
+      //   cxt.rotate(-Math.PI * (i / 100))
+      //   cxt.fillStyle = 'HotPink'
+      //   cxt.fillRect(-rectWidth / 2, -rectHeight / 2, rectWidth, rectHeight)
+      //   cxt.restore()
+      // }, 10)
+
+      // cxt.translate(50, 50)
+      // cxt.fillRect(0, 0, 50, 50)
+
+      // $$('btn-big').onclick = function () {
+      //   // cxt.scale(1.5, 1.5)
+      //   cxt.transform(1.5, 0, 0, 1.5, 0, 0)
+      //   cxt.fillStyle = '#9976FF'
+      //   cxt.fillRect(30, 30, 50, 50)
+      // }
+
+      // $$('btn-small').onclick = function () {
+      //   // cxt.scale(0.5, 0.5)
+      //   cxt.transform(0.5, 0, 0, 0.5, 0, 0)
+      //   cxt.fillStyle = 'LightSkyBlue'
+      //   cxt.fillRect(30, 30, 50, 50)
+      // }
+
+      // $$('btn').onclick = function () {
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+      //   cxt.transform(1, 0, 0, 1, 10, 10)
+      //   cxt.fillStyle = 'HotPink'
+      //   cxt.fillRect(30, 30, 50, 50)
+      // }
+
+      // cxt.translate(150, 0)
+      // cxt.fillStyle = 'rgba(255, 0, 0, 0.25)'
+      // for (var i = 0; i < 50; i++) {
+      //   cxt.translate(25, 25)
+      //   cxt.scale(0.95, 0.95)
+      //   cxt.rotate(Math.PI / 10)
+      //   cxt.fillRect(0, 0, 100, 50)
+      // }
+
+      const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'navy', 'purple']
+      cxt.lineWidth = 12
+      cxt.translate(50, 0)
+      for (var i = 0; i < colors.length; i++) {
+        cxt.translate(0, 10)
+        cxt.strokeStyle = colors[i]
+        cxt.beginPath()
+        cxt.arc(50, 100, 100, 0, 180 * Math.PI / 180, true)
+        cxt.stroke()
+      }
+    }
+  </script>
+</body>
+
+</html>

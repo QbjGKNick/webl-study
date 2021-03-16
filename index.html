@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>webgl</title>
+  <script src="https://cdn.bootcss.com/flv.js/1.5.0/flv.min.js"></script>
+  <script src="./utils/draw.js"></script>
+</head>
+
+<body>
+
+  <!-- <video id="videoElement" controls width="255" height="150" muted></video> -->
+  <canvas width="300" height="200" style="border: 1px dashed gray;"></canvas>
+  <script>
+    const canvas = document.querySelector('canvas')
+    // window.onload = function () {
+    //   const context = canvas.getContext('2d')
+
+    //   context.strokeStyle = 'rgba(255,0,0, 1)'
+    //   context.strokeRect(10, 10, 100, 100)
+
+    //   // context.clearRect(10, 10, 100, 100)
+
+    //   context.fillStyle = '#FFE8E8'
+    //   context.fillRect(10, 10, 100, 100)
+
+    //   context.clearRect(20, 20, 50, 50)
+    // }
+    window.onload = function () {
+      const cxt = canvas.getContext('2d')
+
+      // for (let i = 0; i < 6; i++) {
+      //   for (let j = 0; j < 6; j++) {
+      //     cxt.fillStyle = `rgb(${Math.floor(255 - 42.5 * i)},${Math.floor(255 - 42.5 * j)}, 0)`
+      //     cxt.fillRect(j * 25, i * 25, 25, 25)
+      //   }
+      // }
+
+      // createFivePointedStar(cxt)
+
+      // drawArcTo1(cxt)
+
+      // createRoundedRect(cxt, 100, 100, 20, 20, 20)
+      // cxt.strokeStyle = 'rgba(255, 0, 0, 0.8)'
+      // cxt.stroke()
+      // drawQuadraticCurve(cxt, 100, 20, 30, 120, 160, 120)
+      // cxt.stroke()
+
+      // 二次贝塞尔曲线画“气泡”
+      // cxt.moveTo(75, 25)
+      // cxt.quadraticCurveTo(25, 25, 25, 62)
+      // cxt.quadraticCurveTo(25, 100, 50, 100)
+      // cxt.quadraticCurveTo(50, 120, 30, 125)
+      // cxt.quadraticCurveTo(60, 120, 65, 100)
+      // cxt.quadraticCurveTo(125, 100, 125, 62)
+      // cxt.quadraticCurveTo(125, 25, 75, 25)
+
+      // drawQuadraticCurve(cxt, 25, 25, 75, 25, 25, 62)
+      // drawQuadraticCurve(cxt, 25, 100, 25, 62, 50, 100)
+      // drawQuadraticCurve(cxt, 50, 120, 50, 100, 30, 125)
+      // drawQuadraticCurve(cxt, 60, 120, 30, 125, 65, 100)
+      // drawQuadraticCurve(cxt, 125, 100, 65, 100, 125, 62)
+      // drawQuadraticCurve(cxt, 125, 25, 125, 62, 75, 25)
+      // cxt.stroke()
+
+      // drawBezierCurve(cxt, 20, 20, 120, 120, 20, 80, 120, 60)
+
+      // drawBezierCurve(cxt, 75, 37, 70, 25, 75, 40, 50, 25)
+      // drawBezierCurve(cxt, 20, 25, 20, 62.5, 50, 25, 20, 62.5)
+      // drawBezierCurve(cxt, 20, 80, 40, 102, 20, 62.5, 75, 120)
+      // drawBezierCurve(cxt, 110, 102, 130, 80, 75, 120, 130, 62.5)
+      // drawBezierCurve(cxt, 130, 62.5, 130, 25, 130, 62.5, 100, 25)
+      // drawBezierCurve(cxt, 85, 25, 75, 37, 100, 25, 75, 40)
+
+      // createLeaf(cxt, 1000, canvas.width / 2, canvas.height / 2, 20, 80)
+      // cxt.fillStyle = '#00FF99'
+      // cxt.fill()
+
+      // createSector(cxt, canvas.width / 2, canvas.height / 2, 50, 30, 120)
+      // cxt.lineWidth = 10
+      // cxt.strokeStyle = 'red'
+      // cxt.stroke()
+
+      // cxt.lineWidth = 16
+
+      // lineCap值为默认值（butt）
+      // cxt.moveTo(20, 20)
+      // cxt.lineTo(180, 20)
+      // cxt.stroke()
+
+      // cxt.beginPath()
+      // cxt.lineCap = 'round'
+      // cxt.moveTo(20, 70)
+      // cxt.lineTo(180, 70)
+      // cxt.stroke()
+
+      // cxt.beginPath()
+      // cxt.lineCap = 'square'
+      // cxt.moveTo(20, 120)
+      // cxt.lineTo(180, 120)
+      // cxt.stroke()
+
+      // lineJoin 取值： miter(默认) | round | bevel
+      // cxt.moveTo(50, 50)
+      // cxt.lineTo(100, 50)
+      // cxt.lineTo(50, 100)
+      // cxt.lineTo(100, 100)
+      // cxt.lineWidth = 12
+      // cxt.lineJoin = 'miter'
+      // cxt.lineCap = 'round'
+      // cxt.stroke()
+
+      // cxt.strokeStyle = 'red'
+      // cxt.setLineDash([10, 5, 5, 5])
+      // cxt.strokeRect(50, 50, 80, 80)
+
+      // strokeText(text, x, y, maxWidth) x文本最左边坐标，y文本最下边的坐标
+      // fillText(text, x, y, maxWidth)
+      // const text = '绿叶学习网'
+      // cxt.font = '20px bold'
+      // const textWidth = cxt.measureText(text).width
+      // const canvasWidth = canvas.width
+      // const xPosition = canvasWidth / 2 - textWidth / 2
+      // cxt.fillStyle = 'red'
+      // cxt.fillText(text, xPosition, 50)
+
+      // 在纵坐标100处绘制一条横线
+      cxt.strokeStyle = 'purple'
+      cxt.moveTo(0, 100)
+      cxt.lineTo(300, 100)
+      cxt.stroke()
+
+      cxt.font = '20px Arial'
+      cxt.textBaseline = 'alphabetic'
+      cxt.fillText('alphabetic', 10, 100)
+      cxt.textBaseline = 'top'
+      cxt.fillText('top', 110, 100)
+      cxt.textBaseline = 'middle'
+      cxt.fillText('middle', 160, 100)
+      cxt.textBaseline = 'bottom'
+      cxt.fillText('bottom', 230, 100)
+
+      // alert('文本长度为' + length + 'px')
+    }
+
+
+    // const gl = canvas.getContext('webgl')
+
+    // const vertex = `
+    //   attribute vec2 position;
+
+    //   void main() {
+    //     gl_PointSize = 1.0;
+    //     gl_Position = vec4(position, 1.0, 1.0);
+    //   }
+    // `
+    // const fragment = `
+    //   precision mediump float;
+
+    //   void main() {
+    //     gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    //   }
+    // `
+    // const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+    // gl.shaderSource(vertexShader, vertex);
+    // gl.compileShader(vertexShader);
+
+    // const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+    // gl.shaderSource(fragmentShader, fragment);
+    // gl.compileShader(fragmentShader);
+
+    // const program = gl.createProgram();
+    // gl.attachShader(program, vertexShader);
+    // gl.attachShader(program, fragmentShader);
+    // gl.linkProgram(program);
+    // gl.useProgram(program)
+
+  </script>
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="dplayer"></div>
+  <script src="https://cdn.jsdelivr.net/npm/flv.js@1.5.0/dist/flv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dplayer@1.25.1/dist/DPlayer.min.js"></script>
+  <script>
+    var dp = new DPlayer({
+      container: document.getElementById('dplayer'),  //播放器容器
+      screenshot: true,  //截图功能
+      video: {
+        url: 'http://localhost:7075/oss/CityManagement/video/20210226/10595633237.flv',
+      }
+    });
+  </script>
+</body>
+
+</html> -->

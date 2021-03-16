@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>物理动画</title>
+  <script src="./utils/tools.js"></script>
+  <script src="./utils/arrow.js"></script>
+  <script src="./utils/ball.js"></script>
+</head>
+
+<body>
+  <canvas id="canvas" width="500" height="150" style="border:1px solid silver"></canvas>
+  <!-- <p id="p1"></p> -->
+  <!-- <p id="txt"></p> -->
+  <script type="module">
+    import { $$ } from "./utils/common.js"
+    window.onload = function () {
+      const cnv = $$("canvas")
+      const cxt = cnv.getContext("2d")
+      // const text = $$("p1")
+
+      /*
+      const x = cnv.width / 2
+      const y = cnv.height / 2
+      // const txt = $$("txt")
+      // txt.innerHTML = "Math.atan2(1,2)对应角度为：" + Math.atan2(1, 2) * 180 / Math.PI +
+      //   "<br/>" + "Math.atan2(-1,-2)对应角度为：" + Math.atan2(-1, -2) * 180 / Math.PI
+
+      // 实例化一个箭头，中心坐标为画布中心坐标
+      // const arrow = new Arrow(cnv.width / 2, cnv.height / 2)
+      // 获取鼠标坐标
+      const mouse = tools.getMouse(cnv);
+
+      (function drawFrame() {
+        window.requestAnimationFrame(drawFrame, cnv)
+        cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+        // const dx = mouse.x - cnv.width / 2
+        // const dy = mouse.y - cnv.height / 2
+        // // 使用Math.atan2()方法计算出鼠标与箭头中心的夹角
+        // arrow.angle = Math.atan2(dy, dx)
+
+        // arrow.fill(cxt)
+
+        cxt.save()
+        cxt.beginPath()
+        cxt.moveTo(x, y)
+        // mouse.x表示鼠标的x轴坐标，mouse.y表示鼠标的y轴坐标
+        cxt.lineTo(mouse.x, mouse.y)
+        cxt.closePath()
+        cxt.strokeStyle = 'red'
+        cxt.stroke()
+        cxt.restore()
+
+        const dx = mouse.x - x
+        const dy = mouse.y - y
+        const distance = Math.sqrt(dx * dx + dy * dy)
+        text.innerHTML = "鼠标与中心点距离为：" + distance
+      })()
+      */
+
+      /**************************三角函数的应用***********************************/
+      // // 实例化一个小球，中心坐标为(100,25)，半径、颜色都取默认值 (圆形)
+      /**
+       * 语法
+       * x = centerX + Math.cos(angle) * radius;
+       * y = centerY + Math.sin(angle) * radius;
+      */
+      // const ball = new Ball(100, 25)
+      // const centerX = cnv.width / 2
+      // const centerY = cnv.height / 2
+      // const radius = 50
+      // let angle = 0;
+
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+      //   // 绘制圆形
+      //   cxt.beginPath()
+      //   cxt.arc(centerX, centerY, 50, 0, 360 * Math.PI / 180, false)
+      //   cxt.closePath()
+      //   cxt.stroke()
+
+      //   // 计算小球坐标
+      //   ball.x = centerX + Math.cos(angle) * radius
+      //   ball.y = centerY + Math.sin(angle) * radius
+      //   ball.fill(cxt)
+
+      //   // 角度递增
+      //   angle += 0.05
+      // })()
+
+      // 椭圆
+      /**
+       * 语法
+       * x = centerX + Math.cos(angle) * radiusX;
+       * y = centerY + Math.sin(angle) * radiusY;
+      */
+      // const ball = new Ball(100, 25)
+      // const centerX = cnv.width / 2
+      // const centerY = cnv.height / 2
+      // const radiusX = 60
+      // const radiusY = 40
+      // let angle = 0;
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   // 计算小球坐标
+      //   ball.x = centerX + Math.cos(angle) * radiusX
+      //   ball.y = centerY * Math.sin(angle) * radiusY
+      //   ball.fill(cxt)
+
+      //   // 角度递增
+      //   angle += 0.05
+      // })()
+
+      // // 波形运动（作用于x轴坐标）
+      // /**
+      //  * 语法
+      //  * x = centerX + Math.sin(angle) * range;
+      //  * angle += speed
+      // */
+      // const ball = new Ball(cnv.width / 2, cnv.height / 2)
+      // let angle = 0
+      // const range = 80;
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   ball.x = cnv.width / 2 + Math.sin(angle) * range
+      //   ball.fill(cxt)
+
+      //   // 角度递增
+      //   angle += 0.05
+      // })()
+
+      // // 波形运动（作用于y轴坐标）
+      // /**
+      //  * 语法
+      //  * y = centerY + Math.sin(angle) * range;
+      //  * angle += speed
+      // */
+      // const ball = new Ball(0, cnv.height / 2)
+      // let angle = 0
+      // const range = 40;
+
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   ball.x += 1
+      //   ball.y = cnv.height / 2 + Math.sin(angle) * range
+      //   ball.fill(cxt)
+
+      //   // 角度递增
+      //   angle += 0.05
+      // })()
+
+      // 波形运动（作用于缩放属性scaleX|scaleY）
+      /**
+       * 语法
+       * scaleX = 1 + Math.sin(angle) * range;
+       * scaleY = 1 + Math.sin(angle) * range;
+       * angle += speed;
+      */
+      // const ball = new Ball(cnv.width / 2, cnv.height / 2, 25)
+      // const range = 0.5
+      // let angle = 0;
+
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   ball.scaleX = 1 + Math.sin(angle) * range
+      //   ball.scaleY = 1 + Math.sin(angle) * range
+      //   ball.fill(cxt)
+
+      //   // 角度递增
+      //   angle += 0.05
+      // })()
+
+      /**************************匀速运动***********************************/
+      // // 语法：
+      // // object.x += vx;
+      // // object.y += vy;
+      // const ball = new Ball(0, cnv.height / 2)
+      // // 定义x轴速度为2，也就是每帧向正方向移动2px
+      // let vy = 2;
+
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   ball.y += vy
+
+      //   ball.fill(cxt)
+      // })()
+
+      // // 速度的合成与分解
+      // /**
+      //  * vx = speed * Math.cos(angle * Math.PI / 180)
+      //  * vy = speed * Math.sin(angle * Math.PI / 180)
+      //  * object.x += vx
+      //  * object.y += vy
+      // */
+      // const ball = new Ball()
+      // const speed = 2
+      // // 速度方向与x轴正方向角度为30°
+      // const vx = speed * Math.cos(30 * Math.PI / 180)
+      // const vy = speed * Math.sin(30 * Math.PI / 180);
+
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   ball.x += vx
+      //   ball.y += vy
+
+      //   ball.fill(cxt)
+      // })()
+
+      // // 箭头跟随鼠标移动
+      // // 实例化一个箭头，箭头中心坐标为画布中心坐标
+      // const arrow = new Arrow(cnv.width / 2, cnv.height / 2)
+      // const mouse = tools.getMouse(cnv)
+      // const speed = 1.5
+      // let angle = 0;
+
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   // 计算鼠标与箭头之间的夹角
+      //   const dx = mouse.x - cnv.width / 2
+      //   const dy = mouse.y - cnv.height / 2
+      //   const angle = Math.atan2(dy, dx)
+
+      //   const vx = Math.cos(angle) * speed
+      //   const vy = Math.sin(angle) * speed
+
+      //   arrow.x += vx
+      //   arrow.y += vy
+
+      //   arrow.angle = angle
+      //   arrow.fill(cxt)
+      // })()
+
+      /**************************加速运动***********************************/
+      // // 语法
+      // /**
+      //  * vx += ax
+      //  * vy += ay
+      //  * object.x += vx
+      //  * object.y += vy
+      // */
+      // const ball = new Ball(0, cnv.height / 2)
+      // // 初始化x轴速度以及加速度
+      // let vx = 8
+      // const ax = -0.2;
+
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   ball.x += vx
+      //   ball.fill(cxt)
+
+      //   vx += ax
+      // })()
+
+      // // 加速度的合成和分解
+      // /**
+      //  * ax = a * Math.cos(angle * Math.PI / 180)
+      //  * ay = a * Math.sin(angle * Math.PI / 180)
+      //  * vx += ax;
+      //  * vy += ay
+      //  * object.x += vx
+      //  * object.y += vy
+      // */
+      // const ball = new Ball()
+      // const a = 0.2
+      // // 计算出x轴和y轴2个方向的加速度
+      // const ax = a * Math.cos(30 * Math.PI / 180)
+      // const ay = a * Math.sin(30 * Math.PI / 180)
+      // let vx = 0;
+      // let vy = 0;
+
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   ball.x += vx
+      //   ball.y += vy
+      //   ball.fill(cxt)
+
+      //   vx += ax
+      //   vy += ay
+      // })()
+
+      /**************************重力***********************************/
+      // // 语法：
+      // // vy += gravity
+      // // object.y += vy
+      // const ball = new Ball(0, cnv.height)
+      // let vx = 4;
+      // let vy = -5;
+      // let gravity = 0.2;
+
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   ball.x += vx;
+      //   ball.y += vy
+      //   ball.fill(cxt)
+
+      //   vy += gravity
+      // })()
+
+      // // 初始化数据
+      // const ball = new Ball(cnv.width / 2, 0)
+      // // y轴初始速度为0，重力加速度为0.2，反弹系数为-0.8
+      // var vy = 0;
+      // var gravity = 0.2
+      // var bounce = -0.8;
+
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   ball.y += vy;
+      //   // 边界检测
+      //   if (ball.y > cnv.height - ball.radius) {
+      //     ball.y = cnv.height - ball.radius;
+      //     // 速度方向并且减小
+      //     vy = vy * bounce
+      //   }
+      //   ball.fill(cxt)
+
+      //   vy += gravity
+      // })()
+
+      // const ball = new Ball(0, cnv.height)
+      // const vx = 3;
+      // let vy = -6;
+      // const gravity = 0.2;
+      // const bounce = -0.75;
+
+      // (function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   ball.x += vx
+      //   ball.y += vy
+
+      //   // 边界检测
+      //   if ((ball.y + ball.radius) > cnv.height) {
+      //     ball.y = cnv.height - ball.radius
+      //     vy = vy * bounce
+      //   }
+      //   ball.fill(cxt)
+
+      //   // 变量递增
+      //   vy += gravity
+      // })()
+
+      /**************************摩擦力***********************************/
+      // 语法：
+      /**
+       * vx *= friction;
+       * vy *= friction
+       * object.x += vx;
+       * object.y += vy;
+      */
+      const ball = new Ball(0, cnv.height / 2)
+      // 初始化x轴方向速度为2，摩擦系数为0.95
+      // let vx = 8;
+      const speed = 8;
+      let vx = speed * Math.cos(30 * Math.PI / 180)
+      let vy = speed * Math.sin(30 * Math.PI / 180)
+      const friction = 0.95;
+      (function frame() {
+        window.requestAnimationFrame(frame)
+        cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+        ball.x += vx
+        ball.y += vy
+        ball.fill(cxt)
+
+        vx *= friction
+        vy *= friction
+      })()
+    }
+  </script>
+</body>
+
+</html>

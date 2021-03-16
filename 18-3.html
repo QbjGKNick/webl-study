@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>高级动画</title>
+  <script src="./utils//tools.js"></script>
+  <script src="./utils/ball.js"></script>
+</head>
+
+<body>
+  <canvas id="canvas" width="200" height="150" style="border:1px solid silver;"></canvas>
+  <script type="module">
+    /**
+     * 在canvas中，鼠标事件可以用来实现以下三种交互效果
+     * 1）捕获物体
+     *    canvas中捕获物体的情况可以分为四种：
+     *      （1）矩形的捕获
+     *      （2）圆的捕获
+     *      （3）多边形的捕获
+     *      （4）不规则图形的捕获
+     *    多边形和不规则图形捕获方法采用：分离轴定理（SAT）和最小平移量（MTV）
+     * 2）拖曳物体
+     * 3）抛掷物体
+     */
+    import { $$ } from "./utils/common.js"
+    window.onload = function () {
+      const cnv = $$("canvas")
+      const cxt = cnv.getContext("2d")
+
+      /* 作用于半径 */
+      // const ball = new Ball(cnv.width / 2, cnv.height / 2)
+      // const targetRadius = 36
+      // let opacity = 1.0
+      // const targetOpacity = 0.0
+      // const easing = 0.05
+
+      // !(function frame() {
+      //   window.requestAnimationFrame(frame)
+      //   cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+      //   // const vRadius = (targetRadius - ball.radius) * easing
+      //   const v = (targetOpacity - opacity) * easing
+      //   opacity += v
+      //   // ball.radius += vRadius
+      //   ball.color = `rgba(255, 102, 153, ${opacity})`
+
+      //   ball.fill(cxt)
+      // })()
+
+      /* 作用于颜色 */
+      const ball = new Ball(cnv.width / 2, cnv.height / 2)
+      ball.fill(cxt)
+      const easing = 0.02
+      let red = 255
+      let green = 0
+      let blue = 0
+      const targetRed = 10
+      const targetGreen = 255
+      const targetBlue = 55
+
+      !(function frame() {
+        window.requestAnimationFrame(frame)
+        cxt.clearRect(0, 0, cnv.width, cnv.height)
+
+        const vRed = (targetRed - red) * easing
+        const vGreen = (targetGreen - green) * easing
+        const vBlue = (targetBlue - blue) * easing
+
+        red += vRed
+        green += vGreen
+        blue += vBlue
+
+        const color = "rgba(" + parseInt(red) + "," + parseInt(green) + "," + parseInt(blue) + "," + "1.0)"
+        ball.color = color
+
+        ball.fill(cxt)
+
+      })()
+
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>webgl最短教程</title>
+  <style>
+    * {
+      margin: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #canvas {
+      background-color: antiquewhite;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <!-- 顶点着色器 -->
+  <script id="vertexShader" type="x-shader/x-vertex">
+    // 必须加分号
+    attribute vec4 a_Position;
+    attribute float a_PointSize;
+    void main() {
+      // 点位
+      gl_Position = a_Position;
+      // 尺寸
+      gl_PointSize = a_PointSize;
+    }
+  </script>
+  <!-- 片元着色器 -->
+  <script id="fragmentShader" type="x-shader/x-fragment">
+    // 必须加分号
+    // 中等精度float
+    precision mediump float;
+    uniform vec4 u_FragColor;
+    void main() {
+        gl_FragColor = u_FragColor;
+    }
+  </script>
+  <script type="module">
+    import { initShaders } from "./jsm/utils.js"
+
+    const canvas = document.getElementById("canvas");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const vsSource = document.querySelector("#vertexShader").innerText;
+    const fsSource = document.querySelector("#fragmentShader").innerText;
+    // 三维画笔
+    const gl = canvas.getContext("webgl");
+
+    // 初始化着色器
+    // 功能：解析着色器文本，整合到程序对象里，关联webgl上下文对象，实现两种语言之间的通信
+    initShaders(gl, vsSource, fsSource);
+
+    // 开始声明颜色
+    gl.clearColor(0, 0, 0, 1);
+    // 刷底色
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    // 设置attribute 变量
+    const a_Position = gl.getAttribLocation(gl.program, "a_Position")
+    const a_PointSize = gl.getAttribLocation(gl.program, "a_PointSize")
+
+    // 获取uniform变量
+    const u_FragColor = gl.getUniformLocation(gl.program, 'u_FragColor');
+
+    // 修改attribute 变量
+    // gl.vertexAttrib3f(a_Position, 0.0, 0.5, 0.0);
+    gl.vertexAttrib1f(a_PointSize, 100);
+    gl.vertexAttrib1f(a_Position, 0.1);
+
+    // 修改uniform变量
+    gl.uniform4f(u_FragColor, 1.0, 0, 0.0, 1);
+
+    // 绘制顶点
+    gl.drawArrays(gl.POINTS, 0, 1);
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./utils/draw.js"></script>
+</head>
+
+<body>
+  <canvas id="canvas" width="1000" height="800" style="border: 1px dashed gray;"></canvas>
+  <script type="text/javascript">
+    function $$(id) {
+      return document.getElementById(id)
+    }
+    window.onload = function () {
+      const cnv = $$('canvas')
+      const cxt = cnv.getContext('2d')
+
+      // const img = new Image()
+      // img.src = 'images/lufei.jpg'
+      // img.onload = function () {
+      //   // cxt.drawImage(img, 40, 40, 200, 200, 40, 40, 200, 200)
+      //   const pattern = cxt.createPattern(img, 'no-repeat')
+      //   cxt.fillStyle = pattern
+      //   cxt.fillRect(0, 0, cnv.width, cnv.height)
+      // }
+
+      // const bgCanvas = document.createElement('canvas')
+      // bgCanvas.width = 200
+      // bgCanvas.height = 200
+      // const bgCxt = bgCanvas.getContext('2d')
+      // createFivePointedStar(bgCxt)
+      // bgCxt.fillStyle = 'red'
+      // bgCxt.fill()
+      // bgCxt.beginPath()
+      // bgCxt.arc(10, 10, 10, 0, 360 * Math.PI / 180, true)
+      // bgCxt.closePath()
+      // bgCxt.fillStyle = 'red'
+      // bgCxt.fill()
+
+      // // 平铺canvas
+      // const pattern = cxt.createPattern(bgCanvas, 'repeat')
+      // cxt.fillStyle = pattern
+      // cxt.fillRect(0, 0, cnv.width, cnv.height)
+
+      // cxt.beginPath()
+      // cxt.arc(100, 100, 100, 0, 360 * Math.PI / 180, true)
+      // cxt.closePath()
+      // cxt.stroke()
+
+      // cxt.clip()
+
+      // const image = new Image()
+      // image.src = 'images/lufei.jpg'
+      // image.onload = function () {
+      //   // cxt.drawImage(image, 10, 20)
+      //   const text = '绿叶学习网'
+      //   cxt.font = 'bold 22px Microsoft Yahei'
+      //   const pattern = cxt.createPattern(image, 'no-repeat')
+      //   cxt.fillStyle = pattern
+      //   cxt.fillText(text, 100, 240)
+      // }
+
+
+    }
+  </script>
+</body>
+
+</html>
